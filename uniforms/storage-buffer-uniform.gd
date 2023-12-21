@@ -17,13 +17,16 @@ func get_rd_uniform(binding : int) -> RDUniform:
 	uniform.add_id(storage_buffer)
 	return uniform
 
-func update(data : PackedByteArray) -> void:
+func update_data(data : PackedByteArray) -> void:
 	if storage_buffer_size == data.size():
 		ComputeHelper.rd.buffer_update(storage_buffer, 0, storage_buffer_size, data)
 	else:
 		ComputeHelper.rd.free_rid(storage_buffer)
 		storage_buffer_size = data.size()
 		storage_buffer = ComputeHelper.rd.storage_buffer_create(storage_buffer_size, data)
+
+func get_data() -> PackedByteArray:
+	return ComputeHelper.rd.buffer_get_data(storage_buffer)
 
 func _exit_tree() -> void:
 	ComputeHelper.rd.free_rid(storage_buffer)
