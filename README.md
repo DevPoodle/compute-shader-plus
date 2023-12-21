@@ -1,7 +1,7 @@
 # Compute Helper
 
 This Godot 4 plugin adds in a ComputeHelper class that keeps track of compute shaders and their uniforms.
-Here's a simple example of a shader that reads and then writes to a texture:
+Here's a simple example of a shader that reads and then writes to a texture (ideally in the render thread):
 ```gdscript
 ComputeHelper.fmt.width = screen_size.x
 ComputeHelper.fmt.height = screen_size.y
@@ -19,6 +19,8 @@ compute_shader.add_uniform_array([input_texture, output_texture])
 var work_groups := Vector3i(image_size.x, image_size.y, 1)
 compute_shader.run(work_groups)
 ComputeHelper.sync()
+
+image = output_texture.get_image()
 ```
 For more information on compute shaders in Godot 4, here are some useful resources:
 - [Official Compute Texture Demo Project](https://github.com/godotengine/godot-demo-projects/tree/master/compute/texture)
