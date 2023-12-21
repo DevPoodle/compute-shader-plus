@@ -3,8 +3,8 @@
 This Godot 4 plugin adds in a ComputeHelper class that keeps track of compute shaders and their uniforms.
 Here's a simple example of a shader that reads and then writes to a texture (ideally in the render thread):
 ```gdscript
-ComputeHelper.fmt.width = screen_size.x
-ComputeHelper.fmt.height = screen_size.y
+ComputeHelper.fmt.width = image_size.x
+ComputeHelper.fmt.height = image_size.y
 ComputeHelper.fmt.format = RenderingDevice.DATA_FORMAT_R32G32B32A32_SFLOAT
 ComputeHelper.fmt.usage_bits = RenderingDevice.TEXTURE_USAGE_SAMPLING_BIT + RenderingDevice.TEXTURE_USAGE_STORAGE_BIT + RenderingDevice.TEXTURE_USAGE_CAN_UPDATE_BIT
 
