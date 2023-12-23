@@ -3,7 +3,6 @@ class_name ComputeHelper
 
 static var rd := RenderingServer.get_rendering_device()
 static var view := RDTextureView.new()
-static var fmt := RDTextureFormat.new()
 
 var compute_shader : RID
 var pipeline : RID
