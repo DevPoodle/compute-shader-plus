@@ -19,6 +19,17 @@ ComputeHelper.sync()
 image = output_texture.get_image()
 ```
 
+## Planned Additions
+
+There's quite a few things that still need to be added or cleaned up before this plugin can be considered "complete":
+
+- [ ] In SharedImageUniform, the source ImageUniform should be tracked so that it can automatically update itself if the original ImageUniform's texture buffer is changed. This should prevent some unnecessary calls of update_uniform.
+- [ ] The ImageFormatHelper's method, convert_image_format_to_data_format, should be expanded upon to include an exhaustive list of all possible image formats.
+- [ ] A new set of LinkedUniform classes should be added. These would automatically update their data whenever their source is updated, and update their source when their data is updated. For example, a LinkedImageUniform would read from an image before going through a compute shader, and then update that same image automatically when the compute shader is done.
+- [ ] Support for sampler uniforms should be added.
+
+## Other Resources
+
 For more information on compute shaders in Godot 4, here are some useful resources:
 
 - [Official Compute Texture Demo Project](https://github.com/godotengine/godot-demo-projects/tree/master/compute/texture)
