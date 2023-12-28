@@ -22,13 +22,13 @@ func get_rd_uniform(binding : int) -> RDUniform:
 	return uniform
 
 func update_image(image : Image) -> void:
-	if texture_size == image.get_size():
+	if texture_size == image.get_size() and image_format == image.get_format():
 		ComputeHelper.rd.texture_update(texture, 0, image.get_data())
 	else:
 		ComputeHelper.rd.free_rid(texture)
+		image_format = image.get_format()
 		texture_size = image.get_size()
-		texture_format.width = texture_size.x
-		texture_format.height = texture_size.y
+		texture_format = ImageFormatHelper.create_rd_texture_format(image_format, texture_size)
 		texture = ComputeHelper.rd.texture_create(texture_format, ComputeHelper.view, [image.get_data()])
 
 func get_image() -> Image:
