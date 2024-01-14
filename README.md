@@ -18,6 +18,9 @@ ComputeHelper.sync()
 
 image = output_texture.get_image()
 ```
+## Demo
+
+I've made a [demo](https://github.com/DevPoodle/compute-helper-demo) showing how to use this plugin. It's a slime mold simulation, similar to Sebastian Lague's [Slime Simulation](https://github.com/SebLague/Slime-Simulation). It performs multiple passes of compute shaders on a texture every frame. Hopefully it helps in understanding how to use the plugin.
 
 ## Planned Additions
 
