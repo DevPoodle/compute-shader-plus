@@ -1,13 +1,30 @@
 extends Node
 class_name ImageFormatHelper
 
+const image_format_to_data_format_array : Array[RenderingDevice.DataFormat] = [
+	RenderingDevice.DATA_FORMAT_R8_UINT,
+	RenderingDevice.DATA_FORMAT_R8G8_UINT,
+	RenderingDevice.DATA_FORMAT_R8_UINT,
+	RenderingDevice.DATA_FORMAT_R8G8_UINT,
+	RenderingDevice.DATA_FORMAT_R8G8B8_UINT,
+	RenderingDevice.DATA_FORMAT_R8G8B8A8_UINT,
+	RenderingDevice.DATA_FORMAT_R4G4B4A4_UNORM_PACK16,
+	RenderingDevice.DATA_FORMAT_MAX, # RGB565 not supported
+	RenderingDevice.DATA_FORMAT_R32_SFLOAT,
+	RenderingDevice.DATA_FORMAT_R32G32_SFLOAT,
+	RenderingDevice.DATA_FORMAT_R32G32B32_SFLOAT,
+	RenderingDevice.DATA_FORMAT_R32G32B32A32_SFLOAT,
+	RenderingDevice.DATA_FORMAT_R16_SFLOAT,
+	RenderingDevice.DATA_FORMAT_R16G16_SFLOAT,
+	RenderingDevice.DATA_FORMAT_R16G16B16_SFLOAT,
+	RenderingDevice.DATA_FORMAT_R16G16B16A16_SFLOAT,
+	## The rest are currently not supported
+]
+
 static func convert_image_format_to_data_format(format : Image.Format) -> RenderingDevice.DataFormat:
 	var data_format := RenderingDevice.DATA_FORMAT_MAX
-	match format:
-		Image.FORMAT_RGBA8:
-			data_format = RenderingDevice.DATA_FORMAT_R8G8B8A8_UINT
-		Image.FORMAT_RGBAF:
-			data_format = RenderingDevice.DATA_FORMAT_R32G32B32A32_SFLOAT
+	if int(format) < image_format_to_data_format_array.size():
+		data_format = image_format_to_data_format_array[format]
 	assert(data_format != RenderingDevice.DATA_FORMAT_MAX, "Invalid image format used")
 	return data_format
 
