@@ -28,8 +28,8 @@ There's quite a few things that still need to be added or cleaned up before this
 
 - [X] In SharedImageUniform, the source ImageUniform should be tracked so that it can automatically update itself if the original ImageUniform's texture buffer is changed. This should prevent some unnecessary calls of update_uniform.
 - [X] The ImageFormatHelper's method, convert_image_format_to_data_format, should be expanded upon to include an exhaustive list of all possible image formats.
+- [X] Support for sampler uniforms should be added.
 - [ ] A new set of LinkedUniform classes should be added. These would automatically update their data whenever their source is updated, and update their source when their data is updated. For example, a LinkedImageUniform would read from an image before going through a compute shader, and then update that same image automatically when the compute shader is done.
-- [ ] Support for sampler uniforms should be added.
 
 ## Other Resources
 
