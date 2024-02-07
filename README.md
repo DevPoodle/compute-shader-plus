@@ -1,4 +1,4 @@
-# Compute Helper
+# Compute Shader Plus
 
 <p align="center">
     <img src="logo.svg" width="256">
