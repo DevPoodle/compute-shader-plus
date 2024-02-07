@@ -1,7 +1,7 @@
 # Compute Shader Plus
 
 <p align="center">
-    <img src="logo.svg" width="256">
+    <img src="icon.svg" width="256">
 </p>
 
 This Godot 4 plugin adds in a ComputeHelper class that keeps track of compute shaders and their uniforms.
