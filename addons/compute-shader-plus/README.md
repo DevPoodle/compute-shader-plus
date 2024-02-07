@@ -1,9 +1,5 @@
 # Compute Shader Plus
 
-<p align="center">
-    <img src="icon.svg" width="256">
-</p>
-
 This Godot 4 plugin adds in a ComputeHelper class that keeps track of compute shaders and their uniforms.
 Here's a simple example of a shader that reads and then writes to a texture (ideally in the render thread):
 
