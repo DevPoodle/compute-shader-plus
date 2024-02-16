@@ -10,6 +10,15 @@ static func create(data : PackedByteArray) -> StorageBufferUniform:
 	uniform.storage_buffer = ComputeHelper.rd.storage_buffer_create(uniform.storage_buffer_size, data)
 	return uniform
 
+static func swap_buffers(storage_buffer_1 : StorageBufferUniform, storage_buffer_2 : StorageBufferUniform) -> void:
+	var storage_buffer_1_rid := storage_buffer_1.storage_buffer
+	var storage_buffer_1_size := storage_buffer_1.storage_buffer_size
+	
+	storage_buffer_1.storage_buffer = storage_buffer_2.storage_buffer
+	storage_buffer_1.storage_buffer_size = storage_buffer_2.storage_buffer_size
+	storage_buffer_2.storage_buffer = storage_buffer_1_rid
+	storage_buffer_2.storage_buffer_size = storage_buffer_1_size
+
 func get_rd_uniform(binding : int) -> RDUniform:
 	var uniform := RDUniform.new()
 	uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_STORAGE_BUFFER
