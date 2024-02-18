@@ -40,6 +40,7 @@ func run(groups : Vector3i) -> void:
 	rd.compute_list_bind_uniform_set(compute_list, uniform_set, 0)
 	rd.compute_list_dispatch(compute_list, groups.x, groups.y, groups.z)
 	rd.compute_list_end()
+	rd.free_rid(uniform_set)
 
 func _exit_tree() -> void:
 	rd.free_rid(compute_shader)
