@@ -28,12 +28,11 @@ I've made a [demo](https://github.com/DevPoodle/compute-helper-demo) showing how
 
 ## Planned Additions
 
-There's quite a few things that still need to be added or cleaned up before this plugin can be considered "complete":
+There's a few things I'd like to add to this plugin eventually:
 
-- [X] In SharedImageUniform, the source ImageUniform should be tracked so that it can automatically update itself if the original ImageUniform's texture buffer is changed. This should prevent some unnecessary calls of update_uniform.
-- [X] The ImageFormatHelper's method, convert_image_format_to_data_format, should be expanded upon to include an exhaustive list of all possible image formats.
-- [X] Support for sampler uniforms should be added.
-- [ ] A new set of LinkedUniform classes should be added. These would automatically update their data whenever their source is updated, and update their source when their data is updated. For example, a LinkedImageUniform would read from an image before going through a compute shader, and then update that same image automatically when the compute shader is done.
+- A new LinkedArrayUniform class. Because arrays are passed by reference, it should be possible to have a class that automatically reads from and updates a given array without the user having to call functions like get_data() or update().
+- A more optimized use of uniform sets. From examples I've seen, I know there are times where uniforms and uniform sets can be reused, but I haven't done enough testing to know exactly when, or how I'd want to implement that in this plugin.
+- Proper descriptions and warnings. Most functions and classes would benefit from having descriptions. As I've been testing this plugin, I've also found a few edge cases where it doesn't work properly, not because the plugin itself is broken, but because of limitations of Vulkan/Godot. For example, the format RGBA8 doesn't work as the format of images passed to compute shaders, and it would be helpful to clarify that somewhere.
 
 ## Other Resources
 
