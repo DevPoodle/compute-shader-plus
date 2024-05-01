@@ -1,14 +1,15 @@
 extends Object
 class_name ComputeHelper
+## Responsible for creating and running compute shaders.
 
-static var rd := RenderingServer.get_rendering_device()
-static var view := RDTextureView.new()
+static var rd := RenderingServer.get_rendering_device() ## The global [RenderingDevice].
+static var view := RDTextureView.new() ## A default [RDTextureView] used internally by [ImageUniform].
 
-var compute_shader : RID
-var pipeline : RID
-var bindings : Array[RDUniform]
-var uniforms : Array[Uniform]
+var compute_shader : RID ## The [RID] of the shader specified in [method create].
+var pipeline : RID ## The [RID] of the compute pipeline.
+var uniforms : Array[Uniform] ## An array of every bound [Uniform].
 
+## Returns a new ComputeHelper object that uses the shader provided by [param shader_path].
 static func create(shader_path : String) -> ComputeHelper:
 	var compute_helper := ComputeHelper.new()
 	var shader_file := load(shader_path)
@@ -19,17 +20,21 @@ static func create(shader_path : String) -> ComputeHelper:
 	
 	return compute_helper
 
+## This function waits until all compute shaders currently running have finished. [b]Warning:[/b] To be deleted in Godot 4.3.
 static func sync() -> void:
 	rd.barrier(RenderingDevice.BARRIER_MASK_COMPUTE)
 
+## Binds the given [param uniform]. The binding location depends on the order in which uniforms are added, starting at 0.
 func add_uniform(uniform : Uniform) -> void:
 	uniforms.append(uniform)
 
+## Binds all uniforms in the [param uniform_array]. Binding order is the same as the order of the array.
 func add_uniform_array(uniform_array : Array[Uniform]) -> void:
 	uniforms.append_array(uniform_array)
 
+## Runs the compute shader using the amount of [param groups].
 func run(groups : Vector3i) -> void:
-	bindings.clear()
+	var bindings : Array[RDUniform] = []
 	for uniform_index in uniforms.size():
 		bindings.append(uniforms[uniform_index].get_rd_uniform(uniform_index))
 	
