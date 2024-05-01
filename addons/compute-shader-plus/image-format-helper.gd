@@ -1,4 +1,4 @@
-extends Node
+extends Object
 class_name ImageFormatHelper
 
 const image_format_to_data_format_array : Array[RenderingDevice.DataFormat] = [

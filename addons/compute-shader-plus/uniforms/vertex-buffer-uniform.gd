@@ -17,5 +17,6 @@ func get_rd_uniform(binding : int) -> RDUniform:
 	uniform.add_id(vertex_buffer)
 	return uniform
 
-func _exit_tree() -> void:
-	ComputeHelper.rd.free_rid(vertex_buffer)
+func _notification(what : int) -> void:
+	if what == NOTIFICATION_PREDELETE:
+		ComputeHelper.rd.free_rid(vertex_buffer)

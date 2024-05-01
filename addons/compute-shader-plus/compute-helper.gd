@@ -1,4 +1,4 @@
-extends Node
+extends Object
 class_name ComputeHelper
 
 static var rd := RenderingServer.get_rendering_device()
@@ -42,8 +42,11 @@ func run(groups : Vector3i) -> void:
 	rd.compute_list_end()
 	rd.free_rid(uniform_set)
 
-func _exit_tree() -> void:
-	rd.free_rid(compute_shader)
-	rd.free_rid(pipeline)
-	for uniform in uniforms:
-		uniform.queue_free()
+func _notification(what : int) -> void:
+	if what == NOTIFICATION_PREDELETE:
+		if compute_shader.is_valid():
+			rd.free_rid(compute_shader)
+		if rd.compute_pipeline_is_valid(pipeline):
+			rd.free_rid(pipeline)
+		for uniform in uniforms:
+			uniform.free()

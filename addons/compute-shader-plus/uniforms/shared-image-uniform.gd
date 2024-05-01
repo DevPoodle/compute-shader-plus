@@ -35,5 +35,6 @@ func get_image() -> Image:
 	var image_data := ComputeHelper.rd.texture_get_data(texture, 0)
 	return Image.create_from_data(texture_size.x, texture_size.y, false, image_format, image_data)
 
-func _exit_tree() -> void:
-	ComputeHelper.rd.free_rid(texture)
+func _notification(what : int) -> void:
+	if what == NOTIFICATION_PREDELETE:
+		ComputeHelper.rd.free_rid(texture)

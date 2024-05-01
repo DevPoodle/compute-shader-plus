@@ -37,5 +37,6 @@ func update_data(data : PackedByteArray) -> void:
 func get_data() -> PackedByteArray:
 	return ComputeHelper.rd.buffer_get_data(storage_buffer)
 
-func _exit_tree() -> void:
-	ComputeHelper.rd.free_rid(storage_buffer)
+func _notification(what : int) -> void:
+	if what == NOTIFICATION_PREDELETE:
+		ComputeHelper.rd.free_rid(storage_buffer)

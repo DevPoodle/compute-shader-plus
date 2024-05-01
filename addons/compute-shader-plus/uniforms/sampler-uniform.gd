@@ -22,6 +22,7 @@ func get_rd_uniform(binding : int) -> RDUniform:
 	uniform.add_id(texture)
 	return uniform
 
-func _exit_tree() -> void:
-	ComputeHelper.rd.free_rid(sampler)
-	ComputeHelper.rd.free_rid(texture)
+func _notification(what : int) -> void:
+	if what == NOTIFICATION_PREDELETE:
+		ComputeHelper.rd.free_rid(sampler)
+		ComputeHelper.rd.free_rid(texture)
