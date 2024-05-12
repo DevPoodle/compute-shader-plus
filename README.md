@@ -22,9 +22,11 @@ ComputeHelper.sync()
 
 image = output_texture.get_image()
 ```
-## Demo
+## Demos
 
-I've made a [demo](https://github.com/DevPoodle/compute-helper-demo) showing how to use this plugin. It's a slime mold simulation, similar to Sebastian Lague's [Slime Simulation](https://github.com/SebLague/Slime-Simulation). It performs multiple passes of compute shaders on a texture every frame. Hopefully it helps in understanding how to use the plugin.
+I've made a few sample projects that use this plugin:
+- [Slime Mold Simulation](https://github.com/DevPoodle/compute-helper-demo)
+- [Boids Simulation](https://github.com/DevPoodle/godot-boids)
 
 ## Planned Additions
 
@@ -32,7 +34,7 @@ There's a few things I'd like to add to this plugin eventually:
 
 - A new LinkedArrayUniform class. Because arrays are passed by reference, it should be possible to have a class that automatically reads from and updates a given array without the user having to call functions like get_data() or update().
 - A more optimized use of uniform sets. From examples I've seen, I know there are times where uniforms and uniform sets can be reused, but I haven't done enough testing to know exactly when, or how I'd want to implement that in this plugin.
-- Proper descriptions and warnings. Most functions and classes would benefit from having descriptions. As I've been testing this plugin, I've also found a few edge cases where it doesn't work properly, not because the plugin itself is broken, but because of limitations of Vulkan/Godot. For example, the format RGBA8 doesn't work as the format of images passed to compute shaders, and it would be helpful to clarify that somewhere.
+- Proper descriptions and warnings. Most functions and classes would benefit from having descriptions. As I've been testing this plugin, I've also found a few edge cases that don't seem to have an obvious fix. For example, the format RGBA8 doesn't work as the format of images passed to compute shaders, and I need a good place to clarify stuff like that.
 
 ## Other Resources
 
