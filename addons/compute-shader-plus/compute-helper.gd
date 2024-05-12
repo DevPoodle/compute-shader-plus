@@ -1,3 +1,4 @@
+@tool
 extends Object
 class_name ComputeHelper
 ## Responsible for creating and running compute shaders.
