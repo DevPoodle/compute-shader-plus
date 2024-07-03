@@ -1,10 +1,12 @@
 extends ImageUniform
 class_name SamplerUniform
+## [Uniform] corresponding to a texture. Given to the shader as a sampler.
 
-var sampler : RID
-var sampler_state : RDSamplerState
+var sampler: RID ## The [RID] of the corresponding texture. Used internally.
+var sampler_state: RDSamplerState ## The sampler's settings.
 
-static func create(image : Image) -> SamplerUniform:
+## Returns a new SamplerUniform object using the given [param image].
+static func create(image: Image) -> SamplerUniform:
 	var uniform := SamplerUniform.new()
 	uniform.texture_size = image.get_size()
 	uniform.image_format = image.get_format()
@@ -14,6 +16,7 @@ static func create(image : Image) -> SamplerUniform:
 	uniform.sampler = ComputeHelper.rd.sampler_create(uniform.sampler_state)
 	return uniform
 
+## SamplerUniform's custom implementation of [method Uniform.get_rd_uniform].
 func get_rd_uniform(binding : int) -> RDUniform:
 	var uniform := RDUniform.new()
 	uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_SAMPLER_WITH_TEXTURE
