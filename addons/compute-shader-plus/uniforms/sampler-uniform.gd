@@ -17,7 +17,7 @@ static func create(image: Image) -> SamplerUniform:
 	return uniform
 
 ## SamplerUniform's custom implementation of [method Uniform.get_rd_uniform].
-func get_rd_uniform(binding : int) -> RDUniform:
+func get_rd_uniform(binding: int) -> RDUniform:
 	var uniform := RDUniform.new()
 	uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_SAMPLER_WITH_TEXTURE
 	uniform.binding = binding
@@ -25,7 +25,7 @@ func get_rd_uniform(binding : int) -> RDUniform:
 	uniform.add_id(texture)
 	return uniform
 
-func _notification(what : int) -> void:
+func _notification(what: int) -> void:
 	if what == NOTIFICATION_PREDELETE:
 		ComputeHelper.rd.free_rid(sampler)
 		ComputeHelper.rd.free_rid(texture)

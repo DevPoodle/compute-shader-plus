@@ -2,7 +2,7 @@ extends Object
 class_name ImageFormatHelper
 ## Helper class for working with [RDTextureFormat]s and [enum RenderingDevice.DataFormat]s.
 
-const image_format_to_data_format_array : Array[RenderingDevice.DataFormat] = [
+const image_format_to_data_format_array: Array[RenderingDevice.DataFormat] = [
 	RenderingDevice.DATA_FORMAT_R8_UINT,
 	RenderingDevice.DATA_FORMAT_R8G8_UINT,
 	RenderingDevice.DATA_FORMAT_R8_UINT,
@@ -24,7 +24,7 @@ const image_format_to_data_format_array : Array[RenderingDevice.DataFormat] = [
 ]
 
 ## Returns a [enum RenderingDevice.DataFormat] corresponding to [param format].
-static func convert_image_format_to_data_format(format : Image.Format) -> RenderingDevice.DataFormat:
+static func convert_image_format_to_data_format(format: Image.Format) -> RenderingDevice.DataFormat:
 	var data_format := RenderingDevice.DATA_FORMAT_MAX
 	if int(format) < image_format_to_data_format_array.size():
 		data_format = image_format_to_data_format_array[format]
@@ -32,7 +32,7 @@ static func convert_image_format_to_data_format(format : Image.Format) -> Render
 	return data_format
 
 ## Returns an [RDTextureFormat] with the [param format] and [param resolution] specified.
-static func create_rd_texture_format(format : Image.Format, resolution : Vector2i) -> RDTextureFormat:
+static func create_rd_texture_format(format: Image.Format, resolution: Vector2i) -> RDTextureFormat:
 	var texture_format := RDTextureFormat.new()
 	texture_format.width = resolution.x
 	texture_format.height = resolution.y
