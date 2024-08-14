@@ -5,6 +5,7 @@ class_name ComputeHelper
 
 static var rd := RenderingServer.get_rendering_device() ## The global [RenderingDevice].
 static var view := RDTextureView.new() ## A default [RDTextureView] used internally by [ImageUniform].
+static var version: int = Engine.get_version_info()["minor"]
 
 var compute_shader: RID ## The [RID] of the shader specified in [method create].
 var pipeline: RID ## The [RID] of the compute pipeline.
@@ -21,8 +22,10 @@ static func create(shader_path: String) -> ComputeHelper:
 	
 	return compute_helper
 
-## This function waits until all compute shaders currently running have finished. [b]Warning:[/b] To be deleted in Godot 4.3.
+## This function waits until all compute shaders currently running have finished. Doesn't do anything in versions past 4.2.
 static func sync() -> void:
+	if version > 2:
+		return
 	rd.barrier(RenderingDevice.BARRIER_MASK_COMPUTE)
 
 ## Binds the given [param uniform]. The binding location depends on the order in which uniforms are added, starting at 0.
