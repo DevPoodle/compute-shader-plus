@@ -63,6 +63,7 @@ static func create_rd_texture_format(format: Image.Format, resolution: Vector2i)
 	texture_format.usage_bits = (
 		RenderingDevice.TEXTURE_USAGE_SAMPLING_BIT +
 		RenderingDevice.TEXTURE_USAGE_STORAGE_BIT +
-		RenderingDevice.TEXTURE_USAGE_CAN_UPDATE_BIT
+		RenderingDevice.TEXTURE_USAGE_CAN_UPDATE_BIT +
+		RenderingDevice.TEXTURE_USAGE_CAN_COPY_FROM_BIT
 	)
 	return texture_format
