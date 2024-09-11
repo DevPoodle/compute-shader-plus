@@ -57,5 +57,3 @@ func _notification(what: int) -> void:
 			rd.free_rid(compute_shader)
 		if rd.compute_pipeline_is_valid(pipeline):
 			rd.free_rid(pipeline)
-		for uniform in uniforms:
-			uniform.free()
