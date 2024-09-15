@@ -27,6 +27,7 @@ func get_rd_uniform(binding: int) -> RDUniform:
 func update_uniform(image_uniform: ImageUniform) -> void:
 	texture = ComputeHelper.rd.texture_create_shared(ComputeHelper.view, image_uniform.texture)
 	texture_size = image_uniform.texture_size
+	rid_updated.emit(self)
 	if base_image_uniform != image_uniform:
 		base_image_uniform.rid_updated.disconnect(update_uniform)
 		base_image_uniform = image_uniform

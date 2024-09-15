@@ -33,7 +33,6 @@ I've made a few sample projects that use this plugin:
 There's a few things I'd like to add to this plugin eventually:
 
 - A new LinkedArrayUniform class. Because arrays are passed by reference, it should be possible to have a class that automatically reads from and updates a given array without the user having to call functions like get_data() or update().
-- A more optimized use of uniform sets. From examples I've seen, I know there are times where uniforms and uniform sets can be reused, but I haven't done enough testing to know exactly when, or how I'd want to implement that in this plugin.
 - The ability to use push constants for compute shaders.
 
 ## Other Resources

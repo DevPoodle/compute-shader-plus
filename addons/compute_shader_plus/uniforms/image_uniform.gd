@@ -7,8 +7,6 @@ var texture_size: Vector2i ## The resolution of the texture.
 var image_format: Image.Format ## The [enum Image.Format] of the texture.
 var texture_format: RDTextureFormat ## The [RDTextureFormat] of the texture.
 
-signal rid_updated(image_uniform: ImageUniform)
-
 ## Returns a new ImageUniform object using the given [param image].
 static func create(image: Image) -> ImageUniform:
 	var uniform := ImageUniform.new()
