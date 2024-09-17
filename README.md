@@ -9,7 +9,7 @@ Here's a simple example of a shader that reads and then writes to a texture, mak
 
 ```gdscript
 var image := Image.create(image_size.x, image_size.y, false, Image.FORMAT_RGBAF)
-image.fill(Color.BLACK)
+image.fill(Color.RED)
 
 var compute_shader := ComputeHelper.create("res://compute-shader.glsl")
 var input_texture := ImageUniform.create(image)
