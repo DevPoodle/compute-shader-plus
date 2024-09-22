@@ -1,25 +1,36 @@
-extends Uniform
+extends StorageBufferUniform
 class_name VertexBufferUniform
-## [Uniform] corresponding to vertex data.
+## [Uniform] corresponding to vertex data. Use this when you want to reuse the data as a vertex buffer.
 
-var vertex_buffer: RID ## The [RID] of the corresponding vertex buffer. Used internally.
-var vertex_buffer_size := 0 ## The size of the vertex data in bytes.
-
-## Returns a new VertexBufferUniform object using the given [param vertex_data].
-static func create(vertex_data: PackedByteArray) -> VertexBufferUniform:
+## Returns a new VertexBufferUniform object using the given [param data].
+static func create(data: PackedByteArray) -> VertexBufferUniform:
 	var uniform := VertexBufferUniform.new()
-	uniform.vertex_buffer_size = vertex_data.size()
-	uniform.vertex_buffer = ComputeHelper.rd.vertex_buffer_create(uniform.vertex_buffer_size, vertex_data, true)
+	uniform.storage_buffer_size = data.size()
+	uniform.storage_buffer = ComputeHelper.rd.vertex_buffer_create(uniform.storage_buffer_size, data, true)
 	return uniform
 
-## VertexBufferUniform's custom implementation of [method Uniform.get_rd_uniform].
-func get_rd_uniform(binding: int) -> RDUniform:
-	var uniform := RDUniform.new()
-	uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_STORAGE_BUFFER
-	uniform.binding = binding
-	uniform.add_id(vertex_buffer)
-	return uniform
+## Swaps data between two VertexBufferUniform objects. Both parameters should be VertexBufferUniforms.
+static func swap_buffers(storage_buffer_1: StorageBufferUniform, storage_buffer_2: StorageBufferUniform) -> void:
+	if !storage_buffer_1.is_class("VertexBufferUniform") or !storage_buffer_2.is_class("VertexBufferUniform"):
+		return
+	
+	var storage_buffer_1_rid := storage_buffer_1.storage_buffer
+	var storage_buffer_1_size := storage_buffer_1.storage_buffer_size
+	
+	storage_buffer_1.storage_buffer = storage_buffer_2.storage_buffer
+	storage_buffer_1.storage_buffer_size = storage_buffer_2.storage_buffer_size
+	storage_buffer_2.storage_buffer = storage_buffer_1_rid
+	storage_buffer_2.storage_buffer_size = storage_buffer_1_size
+	
+	storage_buffer_1.rid_updated.emit(storage_buffer_1)
+	storage_buffer_2.rid_updated.emit(storage_buffer_2)
 
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_PREDELETE:
-		ComputeHelper.rd.free_rid(vertex_buffer)
+## Updates the currently stored data to match the given [param data].
+func update_data(data: PackedByteArray) -> void:
+	if storage_buffer_size == data.size():
+		ComputeHelper.rd.buffer_update(storage_buffer, 0, storage_buffer_size, data)
+	else:
+		ComputeHelper.rd.free_rid(storage_buffer)
+		storage_buffer_size = data.size()
+		storage_buffer = ComputeHelper.rd.vertex_buffer_create(storage_buffer_size, data, true)
+		rid_updated.emit(self)
