@@ -4,6 +4,9 @@ class_name UniformBufferUniform
 
 ## Returns a new UniformBufferUniform object using the given [param data].
 static func create(data: PackedByteArray) -> UniformBufferUniform:
+	while data.size() % 16 != 0:
+		data.append(0)
+	
 	var uniform := UniformBufferUniform.new()
 	uniform.storage_buffer_size = data.size()
 	uniform.storage_buffer = ComputeHelper.rd.uniform_buffer_create(uniform.storage_buffer_size, data)
@@ -19,6 +22,9 @@ func get_rd_uniform(binding: int) -> RDUniform:
 
 ## Updates the currently stored data to match the given [param data].
 func update_data(data: PackedByteArray) -> void:
+	while data.size() % 16 != 0:
+		data.append(0)
+	
 	if storage_buffer_size == data.size():
 		ComputeHelper.rd.buffer_update(storage_buffer, 0, storage_buffer_size, data)
 	else:
