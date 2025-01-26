@@ -51,7 +51,7 @@ I've made a few sample projects that use this plugin:
 There's a few things I'd like to add to this plugin eventually:
 
 - A new LinkedArrayUniform class. Because arrays are passed by reference, it should be possible to have a class that automatically reads from and updates a given array without the user having to call functions like get_data() or update().
-- The ability to use push constants for compute shaders.
+- The ability to read back buffer data asynchronously. This is a new feature of Godot 4.4, so I'm wating for the first official release version of it.
 
 ## Other Resources
 

@@ -43,8 +43,8 @@ func add_uniform_array(uniform_array: Array[Uniform]) -> void:
 		uniform.rid_updated.connect(make_uniform_set_dirty)
 	uniform_set_dirty = true
 
-## Runs the compute shader using the amount of [param groups].
-func run(groups: Vector3i) -> void:
+## Runs the compute shader using the amount of [param groups]. [param push_constant] is optional and allows you to push extra data to the compute shader.
+func run(groups: Vector3i, push_constant := PackedByteArray()) -> void:
 	if uniform_set_dirty:
 		var bindings: Array[RDUniform] = []
 		for uniform_index in uniforms.size():
@@ -57,6 +57,12 @@ func run(groups: Vector3i) -> void:
 	
 	rd.compute_list_bind_compute_pipeline(compute_list, pipeline)
 	rd.compute_list_bind_uniform_set(compute_list, uniform_set, 0)
+	
+	if !push_constant.is_empty():
+		while push_constant.size() % 16 != 0:
+			push_constant.append(0)
+		rd.compute_list_set_push_constant(compute_list, push_constant, push_constant.size())
+	
 	rd.compute_list_dispatch(compute_list, groups.x, groups.y, groups.z)
 	rd.compute_list_end()
 
