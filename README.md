@@ -66,3 +66,4 @@ And while you're here, here's some similar plugins you might want to look at:
 
 - [Godot-GPU-Computer](https://github.com/PGComai/Godot-GPU-Computer)
 - [Compute Shader Studio](https://github.com/pascal-ballet/ComputeShaderStudio)
+- [Acerola-Compute](https://github.com/GarrettGunnell/Acerola-Compute)
