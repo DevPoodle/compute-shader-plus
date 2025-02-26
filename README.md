@@ -50,8 +50,8 @@ I've made a few sample projects that use this plugin:
 
 There's a few things I'd like to add to this plugin eventually:
 
-- A new LinkedArrayUniform class. Because arrays are passed by reference, it should be possible to have a class that automatically reads from and updates a given array without the user having to call functions like get_data() or update().
-- The ability to read back buffer data asynchronously. This is a new feature of Godot 4.4, so I'm waiting for the first official release version of it.
+- Basic shader reflection features, such as the ability to get the names of all of the uniforms in a shader, and the ability to set a shader's uniform based off of its name.
+- The ability to read back buffer data asynchronously. This is a new feature of Godot 4.4, so I'm waiting for the first official release version of it to begin implementing this.
 
 ## Other Resources
 
