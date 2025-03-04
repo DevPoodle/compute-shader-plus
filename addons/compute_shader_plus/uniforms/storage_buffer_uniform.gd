@@ -5,6 +5,8 @@ class_name StorageBufferUniform
 var storage_buffer: RID ## The [RID] of the corresponding storage buffer. Used internally.
 var storage_buffer_size := 0 ## The size of the data in bytes.
 
+signal async_data_retrieved(data: PackedByteArray)
+
 ## Returns a new StorageBufferUniform object using the given [param data].
 static func create(data: PackedByteArray) -> StorageBufferUniform:
 	var uniform := StorageBufferUniform.new()
@@ -46,6 +48,13 @@ func update_data(data: PackedByteArray) -> void:
 ## Returns a [PackedByteArray] with the current data. [b]Warning:[/b] This can lead to performance issues.
 func get_data() -> PackedByteArray:
 	return ComputeHelper.rd.buffer_get_data(storage_buffer)
+
+## Gets the buffer's data asynchronously. Returns a [Signal] with a [PackedByteArray] that will be emitted when the data is retrieved. The signal remains the same each time you call this function, so feel free to cache it. [b]Note:[\b] The delay to when the signal is emitted corresponds to the amount of frames specified by [member ProjectSettings.rendering/rendering_device/vsync/frame_queue_size]. Also, this function does nothing before Godot 4.4.
+func get_data_async() -> Signal:
+	if ComputeHelper.version < 4:
+		return async_data_retrieved
+	ComputeHelper.rd.buffer_get_data_async(storage_buffer, async_data_retrieved.emit)
+	return async_data_retrieved
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_PREDELETE:
