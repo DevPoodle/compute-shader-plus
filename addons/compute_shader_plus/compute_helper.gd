@@ -72,9 +72,9 @@ func make_uniform_set_dirty(_uniform: Uniform) -> void:
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_PREDELETE:
-		if uniform_set.is_valid():
-			rd.free_rid(uniform_set)
 		if compute_shader.is_valid():
 			rd.free_rid(compute_shader)
+		if rd.uniform_set_is_valid(uniform_set):
+			rd.free_rid(uniform_set)
 		if rd.compute_pipeline_is_valid(pipeline):
 			rd.free_rid(pipeline)
