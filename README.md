@@ -6,7 +6,7 @@
 
 This Godot 4 plugin adds in a ComputeHelper class that keeps track of compute shaders and their uniforms.
 
-Here's a simple example of a shader that reads and then writes to a texture, making it grayscale (ideally in the render thread). You can find a more thorough explanation in [`docs/tutorial.md`]:
+Here's a simple example of a shader that reads and then writes to a texture, making it grayscale (ideally in the render thread). You can find a more thorough explanation in [`docs/tutorial.md`](docs/tutorial.md):
 
 ```gdscript
 var image := Image.create(image_size.x, image_size.y, false, Image.FORMAT_RGBAF)
