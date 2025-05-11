@@ -18,6 +18,10 @@ static func create(image: Image) -> SamplerUniform:
 
 ## SamplerUniform's custom implementation of [method Uniform.get_rd_uniform].
 func get_rd_uniform(binding: int) -> RDUniform:
+	if !sampler_state or !sampler:
+		sampler_state = RDSamplerState.new()
+		sampler = ComputeHelper.rd.sampler_create(sampler_state)
+	
 	var uniform := RDUniform.new()
 	uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_SAMPLER_WITH_TEXTURE
 	uniform.binding = binding
