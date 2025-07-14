@@ -6,7 +6,10 @@ class_name VertexBufferUniform
 static func create(data: PackedByteArray) -> VertexBufferUniform:
 	var uniform := VertexBufferUniform.new()
 	uniform.storage_buffer_size = data.size()
-	uniform.storage_buffer = ComputeHelper.rd.vertex_buffer_create(uniform.storage_buffer_size, data, true)
+	if ComputeHelper.version < 4:
+		uniform.storage_buffer = ComputeHelper.rd.vertex_buffer_create(uniform.storage_buffer_size, data, true)
+	else:
+		uniform.storage_buffer = ComputeHelper.rd.vertex_buffer_create(uniform.storage_buffer_size, data, RenderingDevice.BUFFER_CREATION_AS_STORAGE_BIT)
 	return uniform
 
 ## Swaps data between two VertexBufferUniform objects. Both parameters should be VertexBufferUniforms.
@@ -32,5 +35,10 @@ func update_data(data: PackedByteArray) -> void:
 	else:
 		ComputeHelper.rd.free_rid(storage_buffer)
 		storage_buffer_size = data.size()
-		storage_buffer = ComputeHelper.rd.vertex_buffer_create(storage_buffer_size, data, true)
+		
+		if ComputeHelper.version < 4:
+			storage_buffer = ComputeHelper.rd.vertex_buffer_create(storage_buffer_size, data, true)
+		else:
+			storage_buffer = ComputeHelper.rd.vertex_buffer_create(storage_buffer_size, data, RenderingDevice.BUFFER_CREATION_AS_STORAGE_BIT)
+		
 		rid_updated.emit(self)
