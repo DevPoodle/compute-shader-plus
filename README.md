@@ -52,6 +52,7 @@ I've made a few sample projects that use this plugin:
 There's a few things I'd like to add to this plugin eventually:
 
 - Basic shader reflection features, such as the ability to get the names of all of the uniforms in a shader, and the ability to set a shader's uniform based off of its name.
+- More thorough documentation. Currently, there is only a basic tutorial, but I'd like to add some other examples, such as using the plugin in a compositor effect, and using it with other RenderingDevice functions.
 
 ## Other Resources
 
