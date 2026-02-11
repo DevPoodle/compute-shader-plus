@@ -1,6 +1,7 @@
 extends Uniform
 class_name SharedImageUniform
-## [Uniform] corresponding to a texture. Shares data with an [ImageUniform]. Given to the shader as an image.
+## [Uniform] corresponding to a texture. Shares data with an [ImageUniform].
+## Given to the shader as an image.
 
 var texture: RID ## The [RID] of the corresponding texture. Used internally.
 var texture_size: Vector2i ## The resolution of the texture.
@@ -33,7 +34,8 @@ func update_uniform(image_uniform: ImageUniform) -> void:
 		base_image_uniform = image_uniform
 		base_image_uniform.rid_updated.connect(update_uniform)
 
-## Returns a new [Image] that has the data of the texture. [b]Warning:[/b] Getting data from the GPU is very slow.
+## Returns a new [Image] that has the data of the texture.
+## [b]Warning:[/b] Getting data from the GPU is very slow.
 func get_image() -> Image:
 	var image_data := ComputeHelper.rd.texture_get_data(texture, 0)
 	return Image.create_from_data(texture_size.x, texture_size.y, false, base_image_uniform.image_format, image_data)

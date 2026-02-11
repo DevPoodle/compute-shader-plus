@@ -3,7 +3,7 @@ class_name ImageFormatHelper
 ## Helper class for working with [RDTextureFormat]s and [enum RenderingDevice.DataFormat]s.
 
 const image_format_to_data_format_array: Array[RenderingDevice.DataFormat] = [
-	# Based on https://github.com/godotengine/godot/blob/master/servers/rendering/renderer_rd/storage_rd/texture_storage.cpp and _validate_texture_format()
+	# Based on texture_storage.cpp and _validate_texture_format()
 	RenderingDevice.DATA_FORMAT_R8_UNORM,                  #  0 FORMAT_L8
 	RenderingDevice.DATA_FORMAT_R8G8_UNORM,                #  1 FORMAT_LA8
 	RenderingDevice.DATA_FORMAT_R8_UNORM,                  #  2 FORMAT_R8

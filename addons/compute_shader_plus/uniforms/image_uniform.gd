@@ -38,20 +38,26 @@ func update_image(image: Image) -> void:
 		texture = ComputeHelper.rd.texture_create(texture_format, ComputeHelper.view, [image.get_data()])
 		rid_updated.emit(self)
 
-## Returns a new [Image] that has the data of the texture. [b]Warning:[/b] Getting data from the GPU is very slow.
+## Returns a new [Image] that has the data of the texture.
+## [b]Warning:[/b] Getting data from the GPU is very slow.
 func get_image() -> Image:
 	var image_data := ComputeHelper.rd.texture_get_data(texture, 0)
 	return Image.create_from_data(texture_size.x, texture_size.y, false, image_format, image_data)
 
-## Gets the image's data asynchronously. Returns a [Signal] with an [Image] that will be emitted when the image is retrieved. The signal remains the same each time you call this function, so feel free to cache it. [b]Note:[\b] The delay to when the signal is emitted corresponds to the amount of frames specified by [member ProjectSettings.rendering/rendering_device/vsync/frame_queue_size]. Also, this function does nothing before Godot 4.4.
+## Gets the image's data asynchronously.
+## Returns a [Signal] with an [Image] that will be emitted when the image is retrieved.
+## The signal remains the same each time you call this function, so feel free to cache it.
+## [b]Note:[/b] The delay to when the signal is emitted corresponds to the amount of frames
+## specified by [member ProjectSettings.rendering/rendering_device/vsync/frame_queue_size].
+## Also, this function does nothing before Godot 4.4.
 func get_image_async() -> Signal:
 	if ComputeHelper.version < 4:
 		return async_image_retrieved
-	ComputeHelper.rd.texture_get_data_async(texture, 0, async_image_callback)
+	ComputeHelper.rd.texture_get_data_async(texture, 0, _async_image_callback)
 	return async_image_retrieved
 
 ## Used internally for [get_image_async].
-func async_image_callback(image_data: PackedByteArray) -> void:
+func _async_image_callback(image_data: PackedByteArray) -> void:
 	var image := Image.create_from_data(texture_size.x, texture_size.y, false, image_format, image_data)
 	async_image_retrieved.emit(image)
 

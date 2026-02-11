@@ -9,7 +9,7 @@ static func create(data: PackedByteArray) -> UniformBufferUniform:
 	
 	var uniform := UniformBufferUniform.new()
 	uniform.storage_buffer_size = data.size()
-	uniform.storage_buffer = ComputeHelper.rd.uniform_buffer_create(uniform.storage_buffer_size, data)
+	uniform.storage_buffer = ComputeHelper.rd.uniform_buffer_create(data.size(), data)
 	return uniform
 
 ## UniformBufferUniform's custom implementation of [method Uniform.get_rd_uniform].
