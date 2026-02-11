@@ -2,7 +2,10 @@ extends Uniform
 class_name ImageUniform
 ## [Uniform] corresponding to a texture. Given to the shader as an image.
 
-var texture: RID ## The [RID] of the corresponding texture. Used internally.
+var texture: RID: ## The [RID] of the corresponding texture. Used internally.
+	set(new_texture):
+		texture = new_texture
+		rid_updated.emit(self)
 var texture_size: Vector2i ## The resolution of the texture.
 var image_format: Image.Format ## The [enum Image.Format] of the texture.
 var texture_format: RDTextureFormat ## The [RDTextureFormat] of the texture.
@@ -36,7 +39,6 @@ func update_image(image: Image) -> void:
 		texture_size = image.get_size()
 		texture_format = ImageFormatHelper.create_rd_texture_format(image_format, texture_size)
 		texture = ComputeHelper.rd.texture_create(texture_format, ComputeHelper.view, [image.get_data()])
-		rid_updated.emit(self)
 
 ## Returns a new [Image] that has the data of the texture.
 ## [b]Warning:[/b] Getting data from the GPU is very slow.

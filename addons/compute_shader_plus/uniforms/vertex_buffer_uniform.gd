@@ -26,9 +26,6 @@ static func swap_buffers(buffer_1: StorageBufferUniform, buffer_2: StorageBuffer
 	buffer_1.storage_buffer_size = buffer_2.storage_buffer_size
 	buffer_2.storage_buffer = buffer_1_rid
 	buffer_2.storage_buffer_size = buffer_1_size
-	
-	buffer_1.rid_updated.emit(buffer_1)
-	buffer_2.rid_updated.emit(buffer_2)
 
 ## Updates the currently stored data to match the given [param data].
 func update_data(data: PackedByteArray) -> void:
@@ -42,5 +39,3 @@ func update_data(data: PackedByteArray) -> void:
 			storage_buffer = ComputeHelper.rd.vertex_buffer_create(storage_buffer_size, data, true)
 		else:
 			storage_buffer = ComputeHelper.rd.vertex_buffer_create(storage_buffer_size, data, 2)
-		
-		rid_updated.emit(self)

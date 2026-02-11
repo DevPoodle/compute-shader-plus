@@ -3,7 +3,10 @@ class_name SharedImageUniform
 ## [Uniform] corresponding to a texture. Shares data with an [ImageUniform].
 ## Given to the shader as an image.
 
-var texture: RID ## The [RID] of the corresponding texture. Used internally.
+var texture: RID: ## The [RID] of the corresponding texture. Used internally.
+	set(new_texture):
+		texture = new_texture
+		rid_updated.emit(self)
 var texture_size: Vector2i ## The resolution of the texture.
 var base_image_uniform: ImageUniform ## The [ImageUniform] this uniform shares data with.
 
@@ -28,7 +31,6 @@ func get_rd_uniform(binding: int) -> RDUniform:
 func update_uniform(image_uniform: ImageUniform) -> void:
 	texture = ComputeHelper.rd.texture_create_shared(ComputeHelper.view, image_uniform.texture)
 	texture_size = image_uniform.texture_size
-	rid_updated.emit(self)
 	if base_image_uniform != image_uniform:
 		base_image_uniform.rid_updated.disconnect(update_uniform)
 		base_image_uniform = image_uniform

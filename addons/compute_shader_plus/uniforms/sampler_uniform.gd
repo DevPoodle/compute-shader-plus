@@ -2,7 +2,10 @@ extends ImageUniform
 class_name SamplerUniform
 ## [Uniform] corresponding to a texture. Given to the shader as a sampler.
 
-var sampler: RID ## The [RID] of the corresponding texture. Used internally.
+var sampler: RID: ## The [RID] of the corresponding texture. Used internally.
+	set(new_sampler):
+		sampler = new_sampler
+		rid_updated.emit(self)
 var sampler_state: RDSamplerState ## The sampler's settings.
 
 ## Returns a new SamplerUniform object using the given [param image].
